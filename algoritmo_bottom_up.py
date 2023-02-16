@@ -4,7 +4,7 @@ def BOTTOM_UP_CUT_ROD(p, n):
 
     # Itera su tutte le possibili lunghezze della verga
     for j in range(1, n + 1):
-        q = float('-inf')
+        q = -1
 
         # Itera su tutte le possibili combinazioni di taglio
         for i in range(j):
@@ -15,3 +15,5 @@ def BOTTOM_UP_CUT_ROD(p, n):
 
     # Restituisce il massimo profitto ottenibile tagliando la verga di lunghezza n
     return r[n]
+
+

@@ -56,6 +56,11 @@ def test_algoritmi():
         # Generazione casuale di una lista di prezzi per l'asta
         p = [random.randint(1, 100) for i in range(n)]
         print("Lunghezza asta:", n)
+        #tempo di esecuzione Forza Bruta
+        start = timeit.default_timer()
+        algoritmo_forza_bruta.bruteforce(pattern, text)
+        end = timeit.default_timer()
+        print("Tempo di esecuzione FORZA BRUTA: ", end - start)
         # Tempo di esecuzione della funzione CUT_ROD
         start = timeit.default_timer()
         algoritmo_ricorsivo.CUT_ROD(p, n)
@@ -72,7 +77,9 @@ def test_algoritmi():
         end = timeit.default_timer()
         print("Tempo di esecuzione BOTTOM_UP_CUT_ROD:", end - start)
         # Stampa di un separatore
-
+        print("-----------------")
+a = test_algoritmi()
+print(a)
 
 
 
