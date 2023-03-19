@@ -1,13 +1,14 @@
+import random
+import timeit
+import matplotlib
+import matplotlib.pyplot as plt
 import algoritmo_forza_bruta
 import algoritmo_ricorsivo
 import algoritmo_ricorsivo_mem
 import algoritmo_bottom_up
-import timeit
-import random
 import numpy as np
-import matplotlib.pyplot as plt
 
-def test_algoritmi():
+def test_algoritmi_grafici():
 
     pattern = "abc"
     text = "abcdabc"
@@ -53,7 +54,12 @@ def test_algoritmi():
 
     # Test delle prestazioni degli algoritmi
     print("Confronto delle prestazioni: ")
-    for n in range(10, 101, 10):
+    times_bruteforce = []
+    times_cutrod = []
+    times_memocutrod = []
+    times_bottomup = []
+    ns = range(10, 101, 10)
+    for n in ns:
         # Generazione casuale di una lista di prezzi per l'asta
         p = [random.randint(1, 100) for i in range(n)]
         print("Lunghezza asta:", n)
@@ -61,31 +67,57 @@ def test_algoritmi():
         start = timeit.default_timer()
         algoritmo_forza_bruta.bruteforce(pattern, text)
         end = timeit.default_timer()
+        time_bruteforce = end - start
+        times_bruteforce.append(time_bruteforce)
         print("Tempo di esecuzione FORZA BRUTA: ", end - start)
+
         # Tempo di esecuzione della funzione CUT_ROD
         start = timeit.default_timer()
         algoritmo_ricorsivo.CUT_ROD(p, n)
         end = timeit.default_timer()
+        time_cutrod = end - start
+        times_cutrod.append(time_cutrod)
         print("Tempo di esecuzione CUT_ROD:", end - start)
+
         # Tempo di esecuzione della funzione MEMOIZED_CUT_ROD
         start = timeit.default_timer()
         algoritmo_ricorsivo_mem.MEMOIZED_CUT_ROD(p, n)
         end = timeit.default_timer()
+        time_memocutrod = end - start
+        times_memocutrod.append(time_memocutrod)
         print("Tempo di esecuzione MEMOIZED_CUT_ROD:", end - start)
         # Tempo di esecuzione della funzione BOTTOM_UP_CUT_ROD
         start = timeit.default_timer()
         algoritmo_bottom_up.BOTTOM_UP_CUT_ROD(p, n)
         end = timeit.default_timer()
+        time_bottomup = end - start
+        times_bottomup.append(time_bottomup)
         print("Tempo di esecuzione BOTTOM_UP_CUT_ROD:", end - start)
         # Stampa di un separatore
         print("-----------------")
 
 
 
-a = test_algoritmi()
+    y_bruteforce = times_bruteforce
+    y_cutrod = times_cutrod
+    y_memocutrod = times_memocutrod
+    y_bottomup = times_bottomup
+
+    plt.plot(ns, y_bruteforce, label='Forza Bruta')
+    plt.plot(ns, y_cutrod, label='CUT_ROD')
+    plt.plot(ns, y_memocutrod, label='MEMOIZED_CUT_ROD')
+    plt.plot(ns, y_bottomup, label='BOTTOM_UP_CUT_ROD')
+
+    plt.xlabel('Lunghezza asta')
+    plt.ylabel('Tempo di esecuzione')
+    plt.title('Prestazioni degli algoritmi')
+
+    plt.legend()
+
+    plt.show()
+
+
+a = test_algoritmi_grafici()
 print(a)
-
-
-
 
 
